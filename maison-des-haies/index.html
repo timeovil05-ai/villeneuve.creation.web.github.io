@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Maison des Haies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Work+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout : bandeau démo, grande bannière bocage, chambres en cartes, infos pratiques, réservation */
+:root {
+  --bg: #f3f5f2; --surface: #ffffff; --fg: #1f2a24; --muted: #5d6a62;
+  --hedge: #4c6b4f; --hedge-soft: #dfe8dd; --slate: #3c5368; --line: #d5ddd4;
+  --demo-bg: #fff3c4; --demo-fg: #5a4500;
+  --display: "Young Serif", Georgia, "Times New Roman", serif;
+  --body: "Work Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141a16; --surface: #1c241f; --fg: #e6ece6; --muted: #9eaca2;
+  --hedge: #8fb592; --hedge-soft: #24322a; --slate: #9db6cc; --line: #2f3b33;
+  --demo-bg: #3b3210; --demo-fg: #f3dc8a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141a16; --surface: #1c241f; --fg: #e6ece6; --muted: #9eaca2;
+  --hedge: #8fb592; --hedge-soft: #24322a; --slate: #9db6cc; --line: #2f3b33;
+  --demo-bg: #3b3210; --demo-fg: #f3dc8a; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.15; text-wrap: balance; margin: 0; }
+.demo { background: var(--demo-bg); color: var(--demo-fg); font-size: 14px; }
+.demo .wrap { padding-block: 8px; }
+header .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-block: 16px; }
+.logo { font-family: var(--display); font-size: 22px; color: var(--fg); text-decoration: none; }
+nav { display: flex; flex-wrap: wrap; gap: 18px; font-weight: 500; }
+nav a { color: var(--fg); text-decoration: none; }
+nav a:hover, nav a:focus-visible { color: var(--hedge); }
+.hero { background: var(--hedge-soft); }
+.hero .wrap { padding-block: 48px 0; display: grid; gap: 16px; }
+.hero h1 { font-size: clamp(34px, 5.5vw, 56px); max-width: 18ch; }
+.hero p { color: var(--muted); max-width: 54ch; margin: 0; }
+.hero svg { width: 100%; height: auto; display: block; margin-top: 16px; }
+.btn { display: inline-block; justify-self: start; padding: 12px 22px; border-radius: 999px; background: var(--hedge); color: var(--bg); font-weight: 600; text-decoration: none; }
+.btn:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--slate); outline-offset: 2px; }
+section { padding-block: 52px; }
+section + section { border-top: 1px solid var(--line); }
+section h2 { font-size: clamp(26px, 3.5vw, 36px); margin-bottom: 8px; }
+.lead { color: var(--muted); max-width: 60ch; margin: 0 0 24px; }
+.rooms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.room { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.room .pic { aspect-ratio: 16 / 10; max-width: 100%; }
+.room .body { padding: 18px 20px 20px; display: grid; gap: 6px; flex: 1; }
+.room h3 { font-size: 22px; }
+.room p { margin: 0; color: var(--muted); }
+.price { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--fg); margin-top: auto; padding-top: 8px; }
+.price small { font-weight: 400; color: var(--muted); }
+.p1 { background: linear-gradient(160deg, var(--hedge-soft), var(--hedge)); }
+.p2 { background: linear-gradient(160deg, var(--hedge-soft), var(--slate)); }
+.p3 { background: linear-gradient(200deg, var(--hedge), var(--slate)); }
+.practical { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 20px; margin: 0; font-variant-numeric: tabular-nums; }
+dt { font-weight: 600; }
+dd { margin: 0; color: var(--muted); }
+ul.near { margin: 0; padding-left: 20px; color: var(--muted); display: grid; gap: 4px; }
+form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; }
+form .full { grid-column: 1 / -1; }
+label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+input, select { width: 100%; box-sizing: border-box; font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
+button { font: inherit; font-weight: 600; padding: 12px 22px; border-radius: 999px; border: 0; background: var(--hedge); color: var(--bg); cursor: pointer; justify-self: start; }
+#total { font-variant-numeric: tabular-nums; font-weight: 600; margin: 0; }
+#msg { color: var(--hedge); font-weight: 600; margin: 0; min-height: 1.6em; }
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+footer .wrap { padding-block: 28px; display: grid; gap: 8px; }
+@media (max-width: 760px) {
+  .rooms, .practical, form { grid-template-columns: 1fr; }
+}
+</style>
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<div class="demo" role="note"><div class="wrap"><strong>Projet de démonstration</strong> : chambre d'hôtes fictive, site réalisé pour un portfolio. <a href="../">Retour au portfolio</a> · Les coordonnées et les prix ne sont pas réels.</div></div>
+
+<header><div class="wrap">
+  <a class="logo" href="#accueil">La Maison des Haies</a>
+  <nav aria-label="Menu"><a href="#chambres">Chambres</a><a href="#pratique">Infos pratiques</a><a href="#reserver">Réserver</a></nav>
+</div></header>
+
+<main>
+<div class="hero" id="accueil"><div class="wrap">
+  <h1>Chambres d'hôtes au calme, au cœur du bocage</h1>
+  <p>Trois chambres dans une longère rénovée, avec petit-déjeuner maison. Idéal pour une visite du Puy du Fou, à environ 15 minutes en voiture.</p>
+  <a class="btn" href="#reserver">Vérifier les disponibilités</a>
+  <svg viewBox="0 0 1000 140" role="img" aria-label="Silhouette de haies et de champs">
+    <path d="M0 140 V90 Q60 50 120 85 Q170 40 240 80 Q300 45 360 82 Q420 55 470 88 L470 140 Z" fill="var(--hedge)" opacity=".85"/>
+    <path d="M430 140 V95 Q500 60 560 92 Q620 50 700 88 Q760 58 820 90 Q900 55 1000 86 V140 Z" fill="var(--hedge)" opacity=".6"/>
+    <rect x="0" y="118" width="1000" height="22" fill="var(--bg)"/>
+  </svg>
+</div></div>
+
+<section id="chambres"><div class="wrap">
+  <h2>Les chambres</h2>
+  <p class="lead">Chaque chambre a sa salle d'eau. Draps, serviettes et petit-déjeuner sont compris.</p>
+  <div class="rooms">
+    <article class="room"><div class="pic p1" role="img" aria-label="Chambre L'Aubépine"></div><div class="body"><h3>L'Aubépine</h3><p>Lit 160 cm, vue sur le jardin.</p><p>2 personnes</p><p class="price">78 € <small>la nuit, petit-déjeuner compris</small></p></div></article>
+    <article class="room"><div class="pic p2" role="img" aria-label="Chambre Le Noisetier"></div><div class="body"><h3>Le Noisetier</h3><p>Lit 140 cm et lit 90 cm, au rez-de-chaussée.</p><p>3 personnes</p><p class="price">92 € <small>la nuit, petit-déjeuner compris</small></p></div></article>
+    <article class="room"><div class="pic p3" role="img" aria-label="Suite La Charmille"></div><div class="body"><h3>La Charmille</h3><p>Suite familiale, 2 chambres à l'étage.</p><p>4 personnes</p><p class="price">118 € <small>la nuit, petit-déjeuner compris</small></p></div></article>
+  </div>
+</div></section>
+
+<section id="pratique"><div class="wrap practical">
+  <div>
+    <h2>Infos pratiques</h2>
+    <dl>
+      <dt>Arrivée</dt><dd>à partir de 17 h 00</dd>
+      <dt>Départ</dt><dd>avant 11 h 00</dd>
+      <dt>Petit-déjeuner</dt><dd>8 h 00 – 10 h 00</dd>
+      <dt>Parking</dt><dd>Gratuit, dans la cour</dd>
+      <dt>Animaux</dt><dd>Non acceptés</dd>
+      <dt>Téléphone</dt><dd>02 00 00 00 00 (fictif)</dd>
+      <dt>Adresse</dt><dd>Lieu-dit fictif, 85290 Saint-Laurent-sur-Sèvre</dd>
+    </dl>
+  </div>
+  <div>
+    <h2>Autour de la maison</h2>
+    <p class="lead">Ce que nos hôtes demandent le plus souvent.</p>
+    <ul class="near">
+      <li>Le Puy du Fou, environ 15 minutes en voiture</li>
+      <li>Balades à pied le long de la Sèvre Nantaise</li>
+      <li>Marché du samedi matin au bourg</li>
+      <li>Restaurants et boulangerie à proximité</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="reserver"><div class="wrap">
+  <h2>Demande de réservation</h2>
+  <p class="lead">Envoyez vos dates, nous confirmons par téléphone ou par e-mail.</p>
+  <form id="resa" novalidate>
+    <div><label for="arrivee">Arrivée</label><input id="arrivee" type="date" value="2027-06-12"></div>
+    <div><label for="nuits">Nombre de nuits</label><input id="nuits" type="number" min="1" max="14" value="2"></div>
+    <div><label for="chambre">Chambre</label><select id="chambre"><option value="78">L'Aubépine (78 €)</option><option value="92" selected>Le Noisetier (92 €)</option><option value="118">La Charmille (118 €)</option></select></div>
+    <div><label for="nomr">Nom</label><input id="nomr" autocomplete="name" value="Claire Moreau"></div>
+    <p id="total" class="full" aria-live="polite"></p>
+    <button type="submit" class="full">Envoyer la demande</button>
+    <p id="msg" class="full" aria-live="polite"></p>
+  </form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div><strong>Mentions légales (exemple)</strong> : La Maison des Haies, établissement fictif. Éditeur, SIRET et hébergeur à compléter pour un vrai client.</div>
+  <div>Site réalisé par Timéo Villeneuve · projet de démonstration</div>
+</div></footer>
+
+<script>
+var nuits = document.getElementById('nuits'), chambre = document.getElementById('chambre'), total = document.getElementById('total');
+function calc() {
+  var n = Math.max(1, Math.min(14, parseInt(nuits.value, 10) || 1));
+  var p = parseInt(chambre.value, 10);
+  total.textContent = 'Total estimé : ' + (n * p) + ' € pour ' + n + (n > 1 ? ' nuits' : ' nuit') + ', petit-déjeuner compris.';
+}
+nuits.addEventListener('input', calc); chambre.addEventListener('change', calc); calc();
+document.getElementById('resa').addEventListener('submit', function (e) {
+  e.preventDefault();
+  document.getElementById('msg').textContent = 'Démonstration : le formulaire fonctionne, mais aucune réservation n’est envoyée.';
+});
+</script>
+
+</body>
+</html>

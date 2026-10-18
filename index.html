@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Villeneuve Création Web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout : en-tête, présentation, réalisations en 2 cartes avec aperçu, offres en 3 colonnes, méthode, contact */
+:root {
+  --bg: #f2f4f7; --surface: #ffffff; --fg: #1b2233; --muted: #5a6478;
+  --accent: #b5582a; --accent-soft: #f6e6dc; --line: #d9dde6; --trace: #c9cfdb;
+  --display: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121722; --surface: #1a2130; --fg: #e8ebf2; --muted: #9aa4b8;
+  --accent: #e08a5c; --accent-soft: #3a2a22; --line: #2c3547; --trace: #2f3a4f; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121722; --surface: #1a2130; --fg: #e8ebf2; --muted: #9aa4b8;
+  --accent: #e08a5c; --accent-soft: #3a2a22; --line: #2c3547; --trace: #2f3a4f; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+a { color: var(--accent); }
+.label { font-family: var(--mono); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+header .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-block: 18px; }
+.logo { font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--fg); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+nav { display: flex; flex-wrap: wrap; gap: 18px; font-weight: 500; }
+nav a { color: var(--fg); text-decoration: none; }
+nav a:hover, nav a:focus-visible { color: var(--accent); }
+.hero .wrap { padding-block: 40px 56px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(34px, 5.2vw, 54px); font-weight: 800; margin-top: 8px; }
+.hero p { color: var(--muted); max-width: 52ch; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.board { max-width: 100%; }
+.board svg { width: 100%; height: auto; display: block; }
+.btn { display: inline-block; padding: 12px 20px; border-radius: 6px; font-weight: 600; text-decoration: none; background: var(--accent); color: var(--bg); }
+.btn:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+section { padding-block: 52px; border-top: 1px solid var(--line); }
+section h2 { font-size: clamp(26px, 3.5vw, 36px); margin: 6px 0 8px; }
+.lead { color: var(--muted); max-width: 60ch; margin: 0 0 28px; }
+.works { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.work { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.shot { aspect-ratio: 16 / 9; max-width: 100%; padding: 14px; box-sizing: border-box; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; }
+.shot .bar { height: 10px; border-radius: 3px; }
+.shot .h { height: 18px; width: 70%; border-radius: 3px; }
+.shot .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.shot .cols i { border-radius: 4px; }
+.s1 { background: #f6f5f1; } .s1 .bar { background: #fff3c4; } .s1 .h { background: #2b2620; } .s1 .cols i { background: #b98a5a; }
+.s2 { background: #dfe8dd; } .s2 .bar { background: #fff3c4; } .s2 .h { background: #1f2a24; } .s2 .cols i { background: #4c6b4f; }
+.work .body { padding: 18px 20px 20px; display: grid; gap: 8px; flex: 1; }
+.work h3 { font-size: 22px; }
+.work p { margin: 0; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 13px; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.chip.demo { border-color: var(--accent); color: var(--accent); }
+.work a.more { font-weight: 600; margin-top: auto; padding-top: 6px; }
+.offers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.offer { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.offer.main { border: 2px solid var(--accent); }
+.offer h3 { font-size: 20px; }
+.price { font-family: var(--display); font-weight: 800; font-size: 30px; font-variant-numeric: tabular-nums; }
+.price small { font-family: var(--body); font-weight: 400; font-size: 15px; color: var(--muted); }
+.offer ul { margin: 0; padding-left: 18px; color: var(--muted); display: grid; gap: 4px; }
+.note { font-size: 14px; color: var(--muted); margin: 18px 0 0; }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: s; }
+.steps li { counter-increment: s; min-width: 0; border-top: 2px solid var(--trace); padding-top: 12px; }
+.steps li::before { content: "0" counter(s); font-family: var(--mono); color: var(--accent); display: block; font-size: 14px; }
+.steps strong { display: block; }
+.steps span { color: var(--muted); }
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.mailbox { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; display: grid; gap: 12px; min-width: 0; }
+.mail { font-family: var(--mono); font-size: 16px; overflow-wrap: anywhere; user-select: all; }
+button { font: inherit; font-weight: 600; padding: 10px 18px; border-radius: 6px; border: 2px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; justify-self: start; }
+#copied { margin: 0; color: var(--muted); font-size: 14px; min-height: 1.5em; }
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+footer .wrap { padding-block: 26px; }
+@media (max-width: 760px) {
+  .hero .wrap, .works, .offers, .contact { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .board { max-width: 320px; }
+}
+</style>
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="logo" href="#accueil"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="3" y="3" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M8 13h4l2-4 2 8 1-4h2" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Villeneuve Création Web</a>
+  <nav aria-label="Menu"><a href="#realisations">Réalisations</a><a href="#offres">Offres</a><a href="#contact">Contact</a></nav>
+</div></header>
+
+<main>
+<div class="hero" id="accueil"><div class="wrap">
+  <div>
+    <span class="status">Activité en lancement · bocage vendéen</span>
+    <h1>Des sites internet simples pour les artisans et commerces d'ici</h1>
+    <p>Je m'appelle Timéo Villeneuve. Je suis en formation CIEL (cybersécurité, informatique et électronique). Je crée des sites clairs, rapides et lisibles sur téléphone, pour que vos clients vous trouvent et vous appellent.</p>
+    <a class="btn" href="#contact">Parler de votre projet</a>
+  </div>
+  <div class="board" aria-hidden="true">
+    <svg viewBox="0 0 300 220">
+      <rect x="10" y="10" width="280" height="200" rx="14" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+      <path d="M40 60h80v40h60M40 160h50v-40h90M220 60v120" fill="none" stroke="var(--trace)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="40" cy="60" r="7" fill="var(--accent)"/><circle cx="40" cy="160" r="7" fill="var(--accent)"/>
+      <rect x="170" y="85" width="60" height="50" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+      <circle cx="220" cy="180" r="7" fill="var(--fg)"/><circle cx="220" cy="60" r="7" fill="var(--fg)"/>
+    </svg>
+  </div>
+</div></div>
+
+<section id="realisations"><div class="wrap">
+  <span class="label">Réalisations</span>
+  <h2>Exemples de sites</h2>
+  <p class="lead">Ces deux sites sont des démonstrations pour des entreprises fictives. Ils montrent le type de site que je peux faire pour vous.</p>
+  <div class="works">
+    <article class="work">
+      <div class="shot s1" role="img" aria-label="Aperçu du site Atelier Copeau"><span class="bar"></span><span class="h"></span><span class="cols"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <div class="chips"><span class="chip demo">Démo</span><span class="chip">Artisan</span><span class="chip">Formulaire de devis</span></div>
+        <h3>Atelier Copeau, menuisier</h3>
+        <p>Présentation des travaux, méthode en 4 étapes, horaires et demande de devis.</p>
+        <a class="more" href="atelier-copeau/">Voir le site</a>
+      </div>
+    </article>
+    <article class="work">
+      <div class="shot s2" role="img" aria-label="Aperçu du site La Maison des Haies"><span class="bar"></span><span class="h"></span><span class="cols"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <div class="chips"><span class="chip demo">Démo</span><span class="chip">Hébergement</span><span class="chip">Calcul du prix</span></div>
+        <h3>La Maison des Haies, chambres d'hôtes</h3>
+        <p>Trois chambres avec leurs prix, infos pratiques et demande de réservation avec total calculé.</p>
+        <a class="more" href="maison-des-haies/">Voir le site</a>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+<section id="offres"><div class="wrap">
+  <span class="label">Offres</span>
+  <h2>Des prix clairs</h2>
+  <p class="lead">Le site vous appartient. Le nom de domaine (environ 10 € par an) est à votre nom.</p>
+  <div class="offers">
+    <article class="offer"><h3>Essentiel</h3><div class="price">250 €</div><ul><li>1 page</li><li>Présentation, horaires, carte</li><li>Bouton « Appeler »</li><li>Mise en ligne</li></ul></article>
+    <article class="offer main"><h3>Standard</h3><div class="price">450 €</div><ul><li>3 à 5 pages</li><li>Photos et formulaire de contact</li><li>Mentions légales</li><li>Mise en ligne</li></ul></article>
+    <article class="offer"><h3>Maintenance</h3><div class="price">15 € <small>par mois</small></div><ul><li>Changement d'horaires et de photos</li><li>Petites corrections de textes</li><li>Vérification que le site marche</li></ul></article>
+  </div>
+  <p class="note">Options : logo simple ou flyer (50 €), fiche Google de l'entreprise (40 €). Tarifs indicatifs, devis gratuit.</p>
+</div></section>
+
+<section id="methode"><div class="wrap">
+  <span class="label">Méthode</span>
+  <h2>Comment on travaille</h2>
+  <p class="lead">Environ deux semaines entre le premier rendez-vous et la mise en ligne.</p>
+  <ol class="steps">
+    <li><strong>Rendez-vous</strong><span>On parle de votre activité et de vos besoins.</span></li>
+    <li><strong>Devis</strong><span>Un prix fixe, signé avant de commencer.</span></li>
+    <li><strong>Création</strong><span>Une première version à valider ensemble.</span></li>
+    <li><strong>Mise en ligne</strong><span>Le site est en ligne et je vous montre comment il marche.</span></li>
+  </ol>
+</div></section>
+
+<section id="contact"><div class="wrap contact">
+  <div>
+    <span class="label">Contact</span>
+    <h2>Un projet de site ?</h2>
+    <p class="lead">Écrivez-moi avec le nom de votre entreprise et ce que vous voulez sur votre site. Je réponds sous 48 heures.</p>
+  </div>
+  <div class="mailbox">
+    <span class="label">E-mail</span>
+    <span class="mail" id="mail">villeneuve.creation.web@gmail.com</span>
+    <button type="button" id="copy">Copier l'adresse</button>
+    <p id="copied" aria-live="polite"></p>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">Villeneuve Création Web · Timéo Villeneuve · Vendée<br>Site hébergé par GitHub Pages (GitHub, Inc.)</div></footer>
+
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var out = document.getElementById('copied'), txt = document.getElementById('mail').textContent;
+  function fallback() {
+    var r = document.createRange(); r.selectNodeContents(document.getElementById('mail'));
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    out.textContent = 'Adresse sélectionnée : faites Copier.';
+  }
+  try {
+    navigator.clipboard.writeText(txt).then(function () { out.textContent = 'Adresse copiée.'; }, fallback);
+  } catch (e) { fallback(); }
+});
+</script>
+
+</body>
+</html>
